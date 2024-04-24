@@ -1,44 +1,44 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'Commics' })
-export class Commic {
-    @PrimaryColumn({ type: 'char', length: 36 })
+export class Commics {
+    @PrimaryColumn({ name: 'Id', type: 'char', length: 36 })
     id: string;
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ name: 'Link', type: 'varchar', length: 255 })
     link: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Name', type: 'longtext' })
     name: string;
 
     @Column({ name: 'LinkImage', type: 'longtext' })
     linkImage: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Author', type: 'longtext' })
     author: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Description', type: 'longtext' })
     description: string;
 
     @Column({ name: 'LengthChapter', type: 'int' })
     lengthChapter: number;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Status', type: 'longtext' })
     status: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Category', type: 'longtext' })
     category: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Rating', type: 'longtext' })
     rating: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Performance', type: 'longtext' })
     performance: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Reads', type: 'longtext' })
     reads: string;
 
-    @Column({ type: 'longtext' })
+    @Column({ name: 'Motips', type: 'longtext' })
     motips: string;
 
     @Column({ name: 'IsActive', type: 'tinyint' })
