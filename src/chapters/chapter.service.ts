@@ -13,10 +13,12 @@ export class ChapterService {
         private readonly chapterTTsRepository: Repository<ChapterTTs>,
     ) { }
 
-    async findByCategory(category: string) {
+    async findByCategory(category: string,cmId:string) {
         switch (category) {
             case 'A':
-                return await this.chapterTHsRepository.find();
+                return await this.chapterTHsRepository.find({where:{
+                    commicId: cmId
+                }});
             case 'Z':
                 return await this.chapterTTsRepository.find();
             default:

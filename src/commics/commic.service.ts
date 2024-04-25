@@ -8,7 +8,18 @@ export class CommicService {
         private comicsRepository: Repository<Commics>,
     ) { }
 
-    async findAll(): Promise<Commics[]> {
-        return await this.comicsRepository.find();
+    async findAll(page:number,size:number): Promise<Commics[]> {
+        return await this.comicsRepository.find({take : size,
+            skip: (page-1) * size});
+    }
+
+    async findAllByCategory(category:number,page:number,size:number): Promise<Commics[]> {
+        return await this.comicsRepository.find({
+            where:{
+                categoryEnum : category
+            },
+            take : size,
+            skip: (page-1) * size
+        });
     }
 }
