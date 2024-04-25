@@ -2,18 +2,20 @@ import { Controller, Get, Param, Query } from "@nestjs/common";
 import { CommicService } from "./commic.service";
 import { Commics } from "./commic.entity";
 import * as jwt from 'jsonwebtoken';
-import { ApiKey } from "src/apikey/apikey.entity";
+import { ConfigService } from "@nestjs/config";
 
 
 @Controller('commics')
 export class CommicController {
-    constructor(private readonly commicService: CommicService) { }
+    constructor(private readonly commicService: CommicService,private configService: ConfigService) { }
 
     @Get()
     async findAll(
         @Query('page') page: number,
         @Query('size') size: number,
     ): Promise<Commics[]> {
+        const port = this.configService.get<number>('PORT', 3000);
+        console.log(port);
         return this.commicService.findAll(page,size);
     }
 
