@@ -7,6 +7,7 @@ export enum Category {
     ChapterDN = 7,
     ChapterDS = 8,
     ChapterCK = 9,
+    ChapterHN = 11,
     ChapterKHI = 12,
     ChapterKA = 20
 }

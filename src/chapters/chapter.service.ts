@@ -12,10 +12,12 @@ import { ChapterKHs } from "./entities/chapter-khs.entity";
 import { ChapterKHIs } from "./entities/chapter-khis.entity";
 import { ChapterVDs } from "./entities/chapter-vds.entity";
 import { Category } from "src/util/enum.util";
+import { ChapterHNs } from "./entities/chapter-hns.entity";
 
 
 @Injectable()
 export class ChapterService {
+    chapterHNs: any;
     constructor(
         @InjectRepository(ChapterCKs)
         private readonly chapterCKsRepository: Repository<ChapterCKs>,
@@ -37,6 +39,8 @@ export class ChapterService {
         private readonly chapterTHsRepository: Repository<ChapterKHs>,
         @InjectRepository(ChapterVDs)
         private readonly chapterVDsRepository: Repository<ChapterVDs>,
+        @InjectRepository(ChapterHNs)
+        private readonly chapterHNssRepository: Repository<ChapterHNs>,
 
     ) { }
 
@@ -117,6 +121,14 @@ export class ChapterService {
                 });
             case Category.ChapterVD:
                 return await this.chapterVDsRepository.find({
+                    where: {
+                        commicId: cmId
+                    },
+                    take: size,
+                    skip: (page - 1) * size
+                });
+            case Category.ChapterHN:
+                return await this.chapterHNssRepository.find({
                     where: {
                         commicId: cmId
                     },

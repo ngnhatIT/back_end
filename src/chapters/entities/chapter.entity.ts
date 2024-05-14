@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity as TypeOrmBaseEntity } from 'typeorm';
 
-@Entity()
+@Entity("Chapter")
 export class Chapter extends TypeOrmBaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
