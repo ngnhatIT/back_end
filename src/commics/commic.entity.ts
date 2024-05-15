@@ -29,11 +29,14 @@ export class Commics {
     @Column({ name: 'Status', type: 'longtext' })
     status: string;
 
+    @Column({ name: 'Category', type: 'longtext' })
+    category: string;
+
     @Column({ name: 'IsActive', type: 'tinyint' })
     isActive: boolean;
 
     @Column({ name: 'View', type: 'int' })
-    view: string;
+    view: number;
 
     @Column({ name: 'IsQuality', type: 'tinyint' })
     isQuality: boolean;

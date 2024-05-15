@@ -27,13 +27,16 @@ export class CommicController {
                 commicSearchDTO.name = item.name;
                 commicSearchDTO.status = item.status;
                 commicSearchDTO.view = item.view;
-            
-              const images = await this.imageService.findAllByCommidId(item.id);
-              commicSearchDTO.image150 = images[0].link150;
-              commicSearchDTO.image300 = images[0].link300;
-              commicSearchDTO.image600 = images[0].link600;
-              commicSearchDTO.image_default = images[0].linkDefault;
-              return commicSearchDTO;
+                commicSearchDTO.authorId = item.authorId;
+                commicSearchDTO.categoryId = item.categoryId;
+                commicSearchDTO.category = item.category;
+                commicSearchDTO.statusId = item.statusId;
+                const images = await this.imageService.findAllByCommidId(item.id);
+                commicSearchDTO.image150 = images[0].link150;
+                commicSearchDTO.image300 = images[0].link300;
+                commicSearchDTO.image600 = images[0].link600;
+                commicSearchDTO.imageDefault = images[0].linkDefault;
+                return commicSearchDTO;
             })
           );
         return dataWithImages;
