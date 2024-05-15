@@ -17,7 +17,6 @@ export class CommicService {
 
     async findAllByCategory(category: number, page: number, size: number): Promise<Commics[]> {
         return await this.comicsRepository.find({
-
             take: size,
             skip: (page - 1) * size
         });

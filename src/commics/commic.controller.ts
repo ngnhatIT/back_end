@@ -3,20 +3,40 @@ import { CommicService } from "./commic.service";
 import { Commics } from "./commic.entity";
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from "@nestjs/config";
+import { CommicSearchDTO } from "./commic.dto";
+import { ImageService } from "src/image/image.service";
 
 
 @Controller('commics')
 export class CommicController {
-    constructor(private readonly commicService: CommicService,private configService: ConfigService) { }
+    constructor(private readonly commicService: CommicService,private readonly imageService: ImageService,private configService: ConfigService) { }
 
     @Get()
     async findAll(
         @Query('page') page: number,
         @Query('size') size: number,
-    ): Promise<Commics[]> {
-        const port = this.configService.get<number>('PORT', 3000);
-        console.log(port);
-        return this.commicService.findAll(page,size);
+    ): Promise<CommicSearchDTO[]> {
+        const commic= await this.commicService.findAll(page,size);
+        const dataWithImages = await Promise.all(
+            commic.map(async (item) => {
+                const commicSearchDTO = new CommicSearchDTO();
+                commicSearchDTO.id = item.id;
+                commicSearchDTO.author = item.author;
+                commicSearchDTO.description = item.description;
+                commicSearchDTO.totalChapter = item.totalChapter;
+                commicSearchDTO.name = item.name;
+                commicSearchDTO.status = item.status;
+                commicSearchDTO.view = item.view;
+            
+              const images = await this.imageService.findAllByCommidId(item.id);
+              commicSearchDTO.image150 = images[0].link150;
+              commicSearchDTO.image300 = images[0].link300;
+              commicSearchDTO.image600 = images[0].link600;
+              commicSearchDTO.image_default = images[0].linkDefault;
+              return commicSearchDTO;
+            })
+          );
+        return dataWithImages;
     }
 
     @Get(':category')
