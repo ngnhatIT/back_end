@@ -1,6 +1,6 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { Commics } from "./commic.entity";
-import { Repository } from "typeorm";
+import { Commics } from "./entities/commic.entity";
+import { Repository, View } from "typeorm";
 
 export class CommicService {
     constructor(
@@ -15,10 +15,21 @@ export class CommicService {
         });
     }
 
-    async findAllByCategory(category: number, page: number, size: number): Promise<Commics[]> {
+    async findCommicByID(commicId:string):Promise<Commics[]>{
+        return await this.comicsRepository.find({
+            where:{
+                id:commicId
+            }
+        });
+    }
+
+    async findAllByCategory(category: string, page: number, size: number): Promise<Commics[]> {
         return await this.comicsRepository.find({
             take: size,
-            skip: (page - 1) * size
+            skip: (page - 1) * size,
+            where:{
+                categoryId:category
+            }
         });
     }
 }

@@ -1,21 +1,32 @@
-import { Controller, Get, Param, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Query } from "@nestjs/common";
 import { ChapterService } from "./chapter.service";
-import * as jwt from 'jsonwebtoken';
+import {  SearchChapterRequestDTO, SearchChapterResponseDTO } from "./dto/search-chapter.dto";
+import { Chapter } from "./entities/chapter.entity";
 
 @Controller('chapters')
 export class ChapterController {
     constructor(private readonly chapterEntityService: ChapterService) { }
 
     @Get()
-    async findByCategory(@Query('category') category: number,
-        @Query('comicId') comicId: string, @Query('jwt') jwt: string, @Query('page') page: number,
-        @Query('size') size: number,) {
-        let code = this.validDateJwt(jwt);
-        console.log(code);
-        return this.chapterEntityService.findByCategory(category, comicId, size, page);
+    async findByCategory(@Body() request:SearchChapterRequestDTO) : Promise<SearchChapterResponseDTO[]> {
+        const category = request.category;
+        const commicId = request.commicId;
+        const page = request.page;
+        const size = request.size;
+      
+        const chapters = await this.chapterEntityService.findByCategory(category, commicId,page,size);
+        const searchResponDto =  await Promise.all(
+            chapters.map(async (chapter) => this.mapChapterToDTO(chapter)),
+          );
+        return searchResponDto;
     }
 
-    validDateJwt(jwtCode: string): string | jwt.JwtPayload {
-        return jwt.verify(jwtCode, 'Tfa4oeLbCPfEEYpcPMZt');
-    }
+
+    private async mapChapterToDTO(chapter: Chapter): Promise<SearchChapterResponseDTO> {
+        const chapterDTO = new SearchChapterResponseDTO();
+        chapterDTO.id = chapter.id;
+        chapterDTO.name = chapter.name;
+        chapterDTO.numberChapter = chapter.numberChapter;
+        return chapterDTO;
+      }
 }

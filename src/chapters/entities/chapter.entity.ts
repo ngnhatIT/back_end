@@ -15,7 +15,7 @@ export class Chapter extends TypeOrmBaseEntity {
     commicId: string;
 
     @Column('int')
-    chapterNumber: number;
+    numberChapter: number;
 
     @Column('text')
     name: string;

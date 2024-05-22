@@ -15,3 +15,9 @@ export class CommicSearchDTO{
     image600:string;
     imageDefault:string;
 }
+
+export class ResponseCommicHomeDTO{
+    slide : CommicSearchDTO[];
+    recommend : CommicSearchDTO[];
+    commics : CommicSearchDTO[]
+}

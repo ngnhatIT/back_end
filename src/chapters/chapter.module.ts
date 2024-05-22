@@ -13,10 +13,12 @@ import { ChapterKHIs } from "./entities/chapter-khis.entity";
 import { ChapterKHs } from "./entities/chapter-khs.entity";
 import { ChapterVDs } from "./entities/chapter-vds.entity";
 import { ChapterHNs } from "./entities/chapter-hns.entity";
+import { CommicModule } from "src/commics/commic.module";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([ChapterTHs, ChapterCKs, ChapterDNs, ChapterDSs, ChapterDTs, ChapterHHs, ChapterKAs, ChapterKHIs, ChapterKHs, ChapterVDs, ChapterHNs]),
+        CommicModule
     ],
     providers: [ChapterService],
     controllers: [ChapterController],

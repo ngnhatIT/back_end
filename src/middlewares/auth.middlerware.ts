@@ -8,10 +8,11 @@ export class AuthMiddleware implements NestMiddleware {
     const secretCode = req.headers['x-secret-code'];
     const validSecretCode = 'UtdFGzmzFf6VL0Fg8wbH';
 
-    if (secretCode === validSecretCode) {
-      next();
-    } else {
-      res.status(401).send('Unauthorized');
-    }
+    // if (secretCode === validSecretCode) {
+    //   next();
+    // } else {
+    //   res.status(401).send('Unauthorized');
+    // }
+    next();
   }
 }

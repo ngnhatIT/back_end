@@ -1,6 +1,6 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Images } from "./image.entity";
+import { Images } from "./entities/image.entity";
 
 export class ImageService {
     constructor(
