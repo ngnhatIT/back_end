@@ -1,4 +1,4 @@
-export class CommicSearchDTO{
+export class CommicSearchDTO {
     id: string;
     name: string;
     author: string;
@@ -6,18 +6,17 @@ export class CommicSearchDTO{
     description: string;
     totalChapter: number;
     status: string;
-    category:string;
+    category: string;
     statusId: string;
-    categoryId:string;
+    categoryId: string;
     view: number;
-    image150:string;
-    image300:string;
-    image600:string;
-    imageDefault:string;
+    image150: string;
+    image300: string;
+    image600: string;
+    imageDefault: string;
 }
 
-export class ResponseCommicHomeDTO{
-    slide : CommicSearchDTO[];
-    recommend : CommicSearchDTO[];
-    commics : CommicSearchDTO[]
+export class CommicDTO {
+    slide: CommicSearchDTO[];
+    recommend: CommicSearchDTO[];
 }

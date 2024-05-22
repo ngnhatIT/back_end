@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
 import { CommicService } from "./commic.service";
-import { CommicSearchDTO } from "./dto/commic.dto";
+import { CommicDTO, CommicSearchDTO } from "./dto/commic.dto";
 import { ImageService } from "src/images/image.service";
 import { Commics } from "./entities/commic.entity";
 
@@ -9,9 +9,9 @@ export class CommicController {
   constructor(
     private readonly commicService: CommicService,
     private readonly imageService: ImageService,
-  ) {}
+  ) { }
 
-  @Get()
+  @Get('/all')
   async findAll(
     @Query('page') page: number,
     @Query('size') size: number,
@@ -21,6 +21,23 @@ export class CommicController {
       commics.map(async (commic) => this.mapCommicToDTO(commic)),
     );
     return commicSearchDTOs;
+  }
+
+  @Get()
+  async findSlide(): Promise<CommicDTO> {
+    const slide = await this.commicService.findSlide();
+    const recommend = await this.commicService.findSlide();
+    const slideDTO = await Promise.all(
+      slide.map(async (commic) => this.mapCommicToDTO(commic)),
+    );
+    const recommendDTO = await Promise.all(
+      recommend.map(async (commic) => this.mapCommicToDTO(commic)),
+    );
+
+    let result = new CommicDTO();
+    result.slide = slideDTO;
+    result.recommend = recommendDTO;
+    return result;
   }
 
   @Get(':category')

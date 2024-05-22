@@ -15,10 +15,26 @@ export class CommicService {
         });
     }
 
-    async findCommicByID(commicId:string):Promise<Commics[]>{
+    async findSlide(): Promise<Commics[]> {
         return await this.comicsRepository.find({
-            where:{
-                id:commicId
+            where: {
+                isSlide: true
+            }
+        });
+    }
+
+    async findRecommend(): Promise<Commics[]> {
+        return await this.comicsRepository.find({
+            where: {
+                isRecommended: true
+            }
+        });
+    }
+
+    async findCommicByID(commicId: string): Promise<Commics[]> {
+        return await this.comicsRepository.find({
+            where: {
+                id: commicId
             }
         });
     }
@@ -27,8 +43,8 @@ export class CommicService {
         return await this.comicsRepository.find({
             take: size,
             skip: (page - 1) * size,
-            where:{
-                categoryId:category
+            where: {
+                categoryId: category
             }
         });
     }
