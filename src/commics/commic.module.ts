@@ -5,12 +5,11 @@ import { Commics } from './entities/commic.entity';
 import { CommicController } from './commic.controller';
 import { CommicService } from './commic.service';
 import { ImageModule } from 'src/images/image.module';
-import { ImageService } from 'src/images/image.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Commics]),ImageModule],
+    imports: [TypeOrmModule.forFeature([Commics]), ImageModule],
     controllers: [CommicController],
     providers: [CommicService],
-    exports:[CommicService]
+    exports: [CommicService]
 })
 export class CommicModule { }
