@@ -27,6 +27,7 @@ export class CommicController {
   async findSlide(): Promise<CommicDTO> {
     const slide = await this.commicService.findSlide();
     const recommend = await this.commicService.findSlide();
+    const mostview = await this.commicService.findMostView();
     const slideDTO = await Promise.all(
       slide.map(async (commic) => this.mapCommicToDTO(commic)),
     );
@@ -34,9 +35,14 @@ export class CommicController {
       recommend.map(async (commic) => this.mapCommicToDTO(commic)),
     );
 
+    const mostViewDTO  =  await Promise.all(
+      mostview.map(async (commic) => this.mapCommicToDTO(commic)),
+    );
+
     let result = new CommicDTO();
     result.slide = slideDTO;
     result.recommend = recommendDTO;
+    result.mostview = mostViewDTO;
     return result;
   }
 

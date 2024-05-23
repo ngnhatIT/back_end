@@ -23,6 +23,16 @@ export class CommicService {
         });
     }
 
+    async findMostView(): Promise<Commics[]> {
+        return await this.comicsRepository.find({
+            take: 20,
+            skip: 1,
+            order: {
+                view : "DESC"
+            }
+        });
+    }
+
     async findRecommend(): Promise<Commics[]> {
         return await this.comicsRepository.find({
             where: {

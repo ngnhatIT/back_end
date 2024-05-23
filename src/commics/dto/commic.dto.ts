@@ -19,4 +19,5 @@ export class CommicSearchDTO {
 export class CommicDTO {
     slide: CommicSearchDTO[];
     recommend: CommicSearchDTO[];
+    mostview: CommicSearchDTO[];
 }
