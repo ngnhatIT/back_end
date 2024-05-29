@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Category } from "src/shared/utils";
 import { ChapterCKs } from "./entities/chapter-cks.entity";
 import { ChapterDNs } from "./entities/chapter-dns.entity";
 import { ChapterDSs } from "./entities/chapter-dss.entity";
@@ -44,15 +43,17 @@ export class ChapterService {
         this.repositoryMap.set('HN', chapterHNsRepository);
     }
 
-    async countChapterById(category: string, cmId: string){
+    async countChapterById(category: string, cmId: string) {
         const repository = this.repositoryMap.get(category);
         if (!repository) {
             throw new Error('Invalid category');
         }
     }
 
-    async findByCategory(category: string, cmId: string,page:number,size:number) {
+    async findByCategory(category: string, cmId: string, page: number, size: number) {
+        console.log(category);
         const repository = this.repositoryMap.get(category);
+        console.log(repository);
         if (!repository) {
             throw new Error('Invalid category');
         }
@@ -64,7 +65,7 @@ export class ChapterService {
                 commicId: cmId
             },
             order: {
-                numberChapter:"ACS"
+                numberChapter: "ACS"
             }
         });
     }
