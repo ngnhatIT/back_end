@@ -15,10 +15,10 @@ export class CommicService {
         });
     }
 
-    async findSlide(): Promise<Commics[]> {
+    async findComplete(): Promise<Commics[]> {
         return await this.comicsRepository.find({
             where: {
-                isSlide: true
+                statusId: 'd120d14b-31f6-4707-8d0a-184f0fcb1229'
             }
         });
     }
